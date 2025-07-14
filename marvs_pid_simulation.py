@@ -20,7 +20,7 @@ V_MAX_Z = 0.1     # m/s - Velocidade máxima segmento Z
 A_MAX_Z = 0.05    # m/s² - Aceleração máxima segmento Z
 TF_Z = 7.5        # s - Tempo total segmento Z
 
-# Ganhos PID (Matrizes Diagonais) - CORRIGIDOS PARA ESTABILIDADE
+# Ganhos PID (Matrizes Diagonais)
 Kp = np.diag([32.78, 9.33, 896.28])
 Ki = np.diag([298.0, 84.8, 8148])
 Kd = np.diag([1.043, 0.297, 28.52])
@@ -195,11 +195,6 @@ def calculate_jacobian(q):
     ])
     return J
 
-# =============================================================================
-# CÓDIGO CORRIGIDO
-# Substitua esta função no seu script
-# =============================================================================
-
 def calculate_jacobian_derivative(q, qd):
     """
     Calcula a derivada da matriz Jacobiana no tempo (VERSÃO CORRIGIDA)
@@ -224,7 +219,7 @@ def calculate_jacobian_derivative(q, qd):
     s12_dot = c12 * (theta1_dot + theta2_dot)
     c12_dot = -s12 * (theta1_dot + theta2_dot)
     
-    # Construir derivada da matriz Jacobiana (corrigida)
+    # Construir derivada da matriz Jacobiana
     # J_dot = d/dt(J_p)
     J_dot_linear = np.array([
         [-L1*c1_dot - L2*c12_dot, -L2*c12_dot, 0], # Derivada de [-L1*s1 - L2*s12, -L2*s12, 0]
@@ -264,7 +259,7 @@ def convert_cartesian_to_joint_trajectory(t, p_d, pd_d, pdd_d):
 # SEÇÃO 3: SIMULAÇÃO DINÂMICA DO SISTEMA CONTROLADO
 # =============================================================================
 
-# Dicionário com parâmetros físicos (CORRIGIDOS)
+# Dicionário com parâmetros físicos
 params = {
     'M1': M1, 'M2': M2, 'M3': M3,
     'I1': I1, 'I2': I2, 'I3': I3,
@@ -317,10 +312,10 @@ def calculate_coriolis_matrix(q, qd, params):
     # Termo principal de Coriolis
     h = -(m2*L1*lc2 + m3*L1*L2) * s2
     
-    # Construir matriz de Coriolis (com o sinal corrigido em C[1,0])
+    # Construir matriz de Coriolis
     C = np.array([
         [h * theta2_dot, h * (theta1_dot + theta2_dot), 0],
-        [-h * theta1_dot, 0, 0], # <--- CORREÇÃO APLICADA AQUI
+        [-h * theta1_dot, 0, 0], 
         [0, 0, 0]
     ])
     

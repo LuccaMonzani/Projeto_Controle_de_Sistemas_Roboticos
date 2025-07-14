@@ -115,11 +115,6 @@ def calculate_jacobian(q):
         [0, 0, -1]
     ])
 
-# =============================================================================
-# CÓDIGO CORRIGIDO
-# Substitua esta função no seu script
-# =============================================================================
-
 def calculate_jacobian_derivative(q, qd):
     """
     Calcula a derivada da matriz Jacobiana no tempo (VERSÃO FINAL CORRIGIDA)
@@ -134,7 +129,7 @@ def calculate_jacobian_derivative(q, qd):
     s1, c1 = np.sin(theta1), np.cos(theta1)
     s12, c12 = np.sin(theta1 + theta2), np.cos(theta1 + theta2)
     
-    # Derivadas dos termos trigonométricos (CORRIGIDO)
+    # Derivadas dos termos trigonométricos
     s1_dot = c1 * theta1_dot
     c1_dot = -s1 * theta1_dot
     s12_dot = c12 * (theta1_dot + theta2_dot)
@@ -186,7 +181,7 @@ def calculate_gravity_vector(q, p):
     return np.array([0, 0, p['M3'] * p['G']])
 
 # =============================================================================
-# SEÇÃO 4: SIMULAÇÃO DINÂMICA (IMPLEMENTAÇÃO CORRIGIDA)
+# SEÇÃO 4: SIMULAÇÃO DINÂMICA
 # =============================================================================
 
 def system_dynamics(t, y, trajectory_data, params, Kp_m, Kd_m):
